@@ -21,14 +21,14 @@
             const formData = new FormData();
             formData.append('file', file);
             try {
-                const response = await fetch('https://file.io/?expires=5m', {
-                    method: 'POST',
-                    body: formData
+                const response = await fetch('https://transfer.sh/', {
+                    method: 'PUT',
+                    body: file
                 });
-                const data = await response.json();
-                if (data.success) {
+                if (response.ok) {
+                    const link = await response.text();
                     document.getElementById('result').innerHTML = 
-                        `Link tải: <a href="${data.link}" target="_blank">${data.link}</a><br>Lưu ý: Link chỉ tồn tại 5 phút hoặc sau 1 lần tải.`;
+                        `Link tải: <a href="${link}" target="_blank">${link}</a><br>Lưu ý: Link tồn tại 14 ngày (hoặc bạn có thể xóa thủ công).`;
                 } else {
                     alert("Lỗi khi tải lên!");
                 }
